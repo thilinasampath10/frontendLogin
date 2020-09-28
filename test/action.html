@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <script>
+            
+                var uname = document.getElementById("1").value;
+				var pword = document.getElementById("2").value;
+				console.log("uname+pword");
+				console.log(uname + pword);
+				$.post("http://localhost:3000/api/authenticate",
+					{
+						username: uname,
+						password: pword
+					},
+					function (data,status) {
+						console.log(status);
+						console.log(data.token);
+						if (data.token) {
+							window.location.replace("http://www.facebook.com");
+						} else if (data.message) {
+							window.location.replace("http://www.google.com");
+						}
+					});
+        </script>
+    </head>
+</html>

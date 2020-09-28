@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {font-family: Arial, Helvetica, sans-serif;}
+
+
+input[type=text], input[type=password] {
+  width: 32%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  align-self:middle;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 25%;
+  align-self:middle;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: middle;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  
+}
+</style>
+<link rel="stylesheet" href="login.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+	<script>
+
+
+		$(document).ready(function () {
+			$("button").click(function () {
+				var uname = document.getElementById("1").value;
+				var pword = document.getElementById("2").value;
+				console.log("uname+pword");
+				console.log(uname + pword);
+				$.post("http://localhost:3000/api/authenticate",
+					{
+						username: uname,
+						password: pword
+					},
+					function (data, status) {
+						console.log(status);
+						console.log(data.token);
+						if (data.token) {
+							window.location.replace("../Content/content.html");
+						} 
+					}).fail(function () {
+            alert("Username or Password is incorrect");
+          });
+			});
+		});
+
+
+	</script>
+
+</head>
+<body>
+
+<h2 align = "middle">Login Form</h2>
+
+
+  <div class="imgcontainer">
+    <img src="images.jpg"  width="100" height="100">
+  </div>
+
+  <div class="container" align = 'middle'>
+    <label for="uname" ><b>Username</b></label>
+    <input type="text" id = "1" placeholder="Enter Username" name="uname" required>
+   </div>
+   <div class="container" align = 'middle'>
+    <label for="psw"><b>Password</b></label>
+    <input type="password" id = "2" placeholder="Enter Password" name="psw" required>
+    </div>
+    <div class="container" align = 'middle'>  
+    <button type="submit">Login</button>
+    </div>
+    
+  
+
+  <div class="container"  align ="middle">
+    
+  <span class="psw" align = "middle">new user? <a href="../Registration/registration.html"> register</a></span>
+  </div>
+
+
+</body>
+</html>
